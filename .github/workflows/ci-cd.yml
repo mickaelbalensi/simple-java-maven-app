@@ -25,3 +25,15 @@ jobs:
 
       - name: Run Tests  
         run: mvn test
+
+      - name: Build Docker Image
+        run: docker build -t my-app .
+
+      - name: Save Docker Image as Artifact
+        run: docker save -o /tmp/my-app.tar my-app
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: /tmp/my-app.tar
